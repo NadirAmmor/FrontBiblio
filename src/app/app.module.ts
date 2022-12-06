@@ -1,3 +1,4 @@
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -15,6 +16,13 @@ import { ComponentsModule } from './components/components.module';
 import { TokenInterceptorService } from './service/token-interceptor.service';
 
 
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { AppRoutingModule } from "./app.routing";
+import { ComponentsModule } from "./components/components.module";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -23,13 +31,12 @@ import { TokenInterceptorService } from './service/token-interceptor.service';
     ComponentsModule,
     NgbModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
-  declarations: [
-    AppComponent,
-    AdminLayoutComponent,
-    AuthLayoutComponent
-  ],
+
   providers: [
     {
       provide:HTTP_INTERCEPTORS,
@@ -37,5 +44,9 @@ import { TokenInterceptorService } from './service/token-interceptor.service';
       multi:true}],
       
   bootstrap: [AppComponent]
+
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent],
+
 })
-export class AppModule { }
+export class AppModule {}
