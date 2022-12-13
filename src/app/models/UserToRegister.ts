@@ -10,3 +10,10 @@ export interface UserToRegister {
         universite : Universite;
         role : Role ;
 }
+
+export interface UserAfterLogin {
+
+        id ?: string;
+        username : string;
+        
+}
