@@ -1,19 +1,26 @@
-import { Thematique } from "./thematique";
 
 export interface Documents {
-    id:string;
-    titre:string;
-    statut:boolean;
-    visibilite:boolean;
-    thematique:Thematique;
-    file:File;
+  id: string;
+  titre: string;
+  statut: boolean;
+  visibilite: boolean;
+  thematique: string;
+  file: File;
 }
-export class DocumentsToAdd{
-    id ?: string;
-    file : any;
-    userName:string;
-    thematique:string;
-    visi : boolean
+
+export interface DocumentsToEdit {
+  id: string;
+  titre: string;
+  visibilite: boolean;
+  thematique: string;
+  file: File;
+}
+export class DocumentsToAdd {
+  id?: string;
+  file: any;
+  userName: string;
+  thematique: string;
+  visi: boolean;
 
   /*  constructor(id:string,file:File,userName:string,thematique:string,visi:boolean){
         this.id = id;
@@ -22,6 +29,5 @@ export class DocumentsToAdd{
         this.thematique = thematique;
         this.visi= visi;
     }*/
-    constructor(){
-    }
+  constructor() {}
 }

@@ -1,3 +1,5 @@
+
+
 <div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
   <div class="container-fluid">
     <div class="header-body">
@@ -90,9 +92,22 @@
       </div>
     </div>
   </div>
-</div>
+</div> 
+<ng-template #content let-c="close" let-d="dismiss">
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Hi there!</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+	</div>
+	<div class="modal-body">
+		<p>Hello, World!</p>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark" (click)="close()">Save</button>
+	</div>
+</ng-template>
 <!-- Page content -->
 <div class="container-fluid mt--7">
+ 
   <!-- Table -->
   <div class="row">
     <div class="col">
@@ -107,6 +122,9 @@
                 <th scope="col">titre</th>
                 <th scope="col">statut</th>
                 <th scope="col">visibility</th>
+                <th scope="col">Download</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -115,14 +133,14 @@
                   <td>{{element.titre}}</td>
                   <td>{{element.statut}}</td>
                   <td>{{element.visibilite}}</td>
+                  <td> <a href="javascript:void(0)" (click)="downloadFile(element)" class="btn btn-sm btn-info mr-4"> Download </a></td>
+                  <td> <a href="javascript:void(0)"  (click)="onClick(element,content)"  class="btn btn-sm btn-info mr-4"> Edit File </a></td>
+                  <td> <a href="javascript:void(0)" (click)="deleteFile(element.id)" class="btn btn-sm btn-info mr-4">Delete File</a></td>
               </tr>
           
             </tbody>
           </table>
-        </div>
-      
-        
-        
+        </div> 
         <div class="card-footer py-4">
           <nav aria-label="...">
             <ul class="pagination justify-content-end mb-0">
@@ -150,64 +168,66 @@
         </div>
       </div>
       <br>
-      <form #form='ngForm' (ngSubmit)="onSubmit(form)" enctype="multipart/form-data">
-        <div class="card bg-secondary shadow">
-          <div class="heading-small text-muted mb-4">
-            <div class="pl-lg-4">
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-email">User Name</label>
-                    <input
-                     type="userName" 
-                     id="userName" 
-                     name = "userName"
-                     class="form-control form-control-alternative" 
-                     placeholder="userName"
-                     ngModel required #userName="ngModel">
-                  </div>
-                </div>
       
+        <form #form='ngForm' (ngSubmit)="onSubmit(form)" enctype="multipart/form-data">
+          <div class="card bg-secondary shadow">
+            <div class="heading-small text-muted mb-4">
+              <div class="pl-lg-4">
+              <div >Create Documents ({{documentId}})
+                <div class="row">
                 
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <select class="form-control" id="theematique" name="thematique" placeholder="thematique">
-                      <option>Select University</option>
-                       <option *ngFor="let u of thematiqueTable">
-                           {{u.domain}}
-                       </option>
-                     </select>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <select 
+                      class="form-control"
+                       id="thematique" 
+                       name="thematique"
+                        placeholder="thematique"
+                          ngModel required #thematique="ngModel">
+                       
+                        <option selected>Select Thematique</option>
+                         <option *ngFor="let u of thematiqueTable" [ngValue]="u">
+                             {{u.domaine}}
+                         </option>
+                       </select>
+                       {{selectThematique | json}}
+                    </div>
                   </div>
-                </div>
-
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label
-                     class="form-control-label"
-                     for="file"
-                     id="file">File</label>
-                    <input 
-                    type="file"
-                     id="file"
-                    class="form-control form-control-alternative"
-                    placeholder="file"
-                    (change)="onFileChange($event)">
-                    <!-- <input type="button" value="upload"> -->
+  
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label
+                       class="form-control-label"
+                       for="file"
+                       id="file">File</label>
+                      <input 
+                      type="file"
+                       id="file"
+                       name="pfile"
+                      class="form-control form-control-alternative"
+                      placeholder="file"
+                      ngModel
+                      (change)="onFileChange($event)">
+                      <!-- <input type="button" value="upload"> -->
+                    </div>
                   </div>
                 </div>
               </div>
+                
+              </div>
+            </div>
+            <div>
+              <button class="btn btn-info" type="submit"> 
+                Add Document
+              </button>
             </div>
           </div>
-          <div>
-            <button class="btn btn-info" type="submit"> 
-              Add Document
-            </button>
-          </div>
-        </div>
-      </form>
+        </form>
+     
     
     </div>
   </div>
   <!-- Dark table -->
  
 </div>
+

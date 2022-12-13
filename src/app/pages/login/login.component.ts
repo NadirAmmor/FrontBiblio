@@ -3,7 +3,9 @@ import { NgForm } from "@angular/forms";
 import { FormBuilder } from "@angular/forms";
 import { Router } from "@angular/router";
 import { User } from "src/app/models/User";
+import { UserAfterLogin } from "src/app/models/UserToRegister";
 import { AuthServiceService } from "src/app/service/auth-service.service";
+import { CommunicationServiceService } from "src/app/service/communication-service.service";
 
 @Component({
   selector: "app-login",
@@ -13,7 +15,10 @@ import { AuthServiceService } from "src/app/service/auth-service.service";
 export class LoginComponent implements OnInit {
   user: User;
 
-  constructor(
+  userAfterLogin: UserAfterLogin;
+
+  constructor(    
+    private serviceCom : CommunicationServiceService,
     private fb: FormBuilder,
     private router: Router,
     private authService: AuthServiceService
@@ -27,6 +32,13 @@ export class LoginComponent implements OnInit {
       password: form.value.password,
     };
     this.authService.login(this.user).subscribe((response) => {
+      this.userAfterLogin = {
+        id: response.user.id,
+        username: response.user.username,
+      };
+
+    this.serviceCom.setAfterLoginUser(this.userAfterLogin),
+
       localStorage.setItem("profanis_auth", response.accessToken);
       this.router.navigate(["/dashboard"]);
     });
